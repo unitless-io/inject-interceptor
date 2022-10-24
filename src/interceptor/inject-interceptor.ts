@@ -2,7 +2,6 @@ import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import generate from '@babel/generator';
-import MD5 from 'md5.js';
 
 import { FunctionType } from '@app/constants';
 
@@ -15,11 +14,10 @@ interface Rresult {
     type: FunctionType;
     name: string;
     content: string;
-    id: string;
   }[];
 }
 
-export const injectInterceptor = async (content: string, filePath: string, token: string): Promise<Rresult> => {
+export const injectInterceptor = async (content: string, fileId: string): Promise<Rresult> => {
   const result: Rresult = {
     areInterceptorsInjected: false,
     content,
@@ -39,19 +37,17 @@ export const injectInterceptor = async (content: string, filePath: string, token
               const exportNamedDeclarationNode = variableDeclarationPath.parent;
               const leadingComment = exportNamedDeclarationNode.leadingComments?.[0].value;
               if (leadingComment && /@test-next-line/.test(leadingComment)) {
-                const name = Object.keys(variableDeclarationPath.getOuterBindingIdentifiers())[0];
-                const id = new MD5().update(`${token}${filePath}@${name}`).digest('hex');
+                const functionName = Object.keys(variableDeclarationPath.getOuterBindingIdentifiers())[0];
 
                 const arrowFunction = generate(path.node);
 
                 result.functions.push({
                   type: FunctionType.Arrow,
-                  name,
+                  name: functionName,
                   content: arrowFunction.code,
-                  id,
                 });
 
-                path.replaceWithSourceString(createInterceptor(arrowFunction.code, id));
+                path.replaceWithSourceString(createInterceptor(arrowFunction.code, fileId, functionName));
 
                 result.areInterceptorsInjected = true;
               }
