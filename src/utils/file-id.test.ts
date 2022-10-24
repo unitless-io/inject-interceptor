@@ -1,4 +1,4 @@
-import { getFileId } from './get-file-id';
+import { getFileId } from './file-id';
 
 describe('getFileId', () => {
   test.each`

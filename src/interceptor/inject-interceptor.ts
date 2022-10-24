@@ -4,6 +4,7 @@ import * as t from '@babel/types';
 import generate from '@babel/generator';
 
 import { FunctionType } from '@app/constants';
+import { getFunctionId } from '@app/utils/function-id';
 
 import { createInterceptor } from './create-interceptor';
 
@@ -14,6 +15,7 @@ interface Rresult {
     type: FunctionType;
     name: string;
     content: string;
+    id: string;
   }[];
 }
 
@@ -37,17 +39,19 @@ export const injectInterceptor = async (content: string, fileId: string): Promis
               const exportNamedDeclarationNode = variableDeclarationPath.parent;
               const leadingComment = exportNamedDeclarationNode.leadingComments?.[0].value;
               if (leadingComment && /@test-next-line/.test(leadingComment)) {
-                const functionName = Object.keys(variableDeclarationPath.getOuterBindingIdentifiers())[0];
+                const name = Object.keys(variableDeclarationPath.getOuterBindingIdentifiers())[0];
+                const id = getFunctionId(fileId, name);
 
                 const arrowFunction = generate(path.node);
 
                 result.functions.push({
                   type: FunctionType.Arrow,
-                  name: functionName,
+                  name,
                   content: arrowFunction.code,
+                  id,
                 });
 
-                path.replaceWithSourceString(createInterceptor(arrowFunction.code, fileId, functionName));
+                path.replaceWithSourceString(createInterceptor(arrowFunction.code, id));
 
                 result.areInterceptorsInjected = true;
               }
