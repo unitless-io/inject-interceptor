@@ -19,7 +19,7 @@ interface Rresult {
   }[];
 }
 
-export const injectInterceptor = async (content: string, fileId: string): Promise<Rresult> => {
+export const injectInterceptor = (content: string, fileId: string): Rresult => {
   const result: Rresult = {
     areInterceptorsInjected: false,
     content,

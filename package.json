@@ -2,7 +2,10 @@
   "name": "@unitless-io/inject-interceptor",
   "version": "0.0.1",
   "description": "Unitless Inject Interceptor",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "tsc -w & tsc-alias -w",
     "build": "tsc && tsc-alias",
@@ -45,6 +48,7 @@
     "@babel/parser": "^7.17.3",
     "@babel/traverse": "^7.17.3",
     "@babel/types": "^7.17.0",
+    "md5.js": "^1.3.5",
     "ramda": "^0.28.0"
   }
 }
