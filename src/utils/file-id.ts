@@ -1,3 +1,5 @@
+import MD5 from 'md5.js';
+
 export const getFileId = (filePath: string) => {
-  return filePath.replaceAll(/[\\/]/g, '-');
+  return new MD5().update(filePath).digest('hex');
 };
