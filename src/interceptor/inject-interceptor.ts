@@ -63,7 +63,7 @@ export const injectInterceptor = (content: string, fileId: string): Rresult => {
   });
 
   if (result.areInterceptorsInjected) {
-    result.content = `import { _$Proxy } from '@unitless-io/loader/dist/web';\n${generate(ast).code}`;
+    result.content = `import { _$LocalProxy } from '@unitless-io/loader/dist/web';\n${generate(ast).code}`;
   }
 
   return result;
