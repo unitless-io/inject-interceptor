@@ -2,9 +2,9 @@ import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import generate from '@babel/generator';
+import { getFunctionId } from '@unitless-io/local-db';
 
 import { FunctionType } from '@app/constants';
-import { getFunctionId } from '@app/utils/function-id';
 
 import { createInterceptor } from './create-interceptor';
 
