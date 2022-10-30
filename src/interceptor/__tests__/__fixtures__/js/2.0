@@ -1,0 +1,10 @@
+import { parse } from '@babel/parser';
+
+// @test-next-line
+export const parseJs = (code) => {
+  return parse(code);
+};
+
+export const parseTs = (code) => {
+  return parse(code);
+};

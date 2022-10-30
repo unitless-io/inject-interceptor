@@ -6,7 +6,7 @@ import { getFunctionId } from '@unitless-io/local-db';
 
 import { FunctionType } from '@app/constants';
 
-import { createInterceptor } from './create-interceptor';
+import { createArrowFunctionInterceptor } from './create-interceptor';
 
 interface Rresult {
   areInterceptorsInjected: boolean;
@@ -26,7 +26,7 @@ export const injectInterceptor = (content: string, fileId: string): Rresult => {
     functions: [],
   };
 
-  const ast = parse(content, { sourceType: 'module' });
+  const ast = parse(content, { sourceType: 'module', plugins: ['typescript'] });
 
   traverse(ast, {
     exit(path) {
@@ -51,7 +51,7 @@ export const injectInterceptor = (content: string, fileId: string): Rresult => {
                   id,
                 });
 
-                path.replaceWithSourceString(createInterceptor(arrowFunction.code, id));
+                path.replaceWith(createArrowFunctionInterceptor(path.node, id));
 
                 result.areInterceptorsInjected = true;
               }
