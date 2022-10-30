@@ -1,0 +1,6 @@
+import { parse } from '@babel/parser';
+
+// @test-next-line
+export const parseJs = (code: string) => {
+  return parse(code);
+};

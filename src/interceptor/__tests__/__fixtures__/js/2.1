@@ -1,0 +1,10 @@
+import { _$LocalProxy } from '@unitless-io/loader/dist/web';
+import { parse } from '@babel/parser';
+
+// @test-next-line
+export const parseJs = _$LocalProxy(code => {
+  return parse(code);
+}, "test-file-id/parseJs");
+export const parseTs = code => {
+  return parse(code);
+};
