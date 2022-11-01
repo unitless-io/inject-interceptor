@@ -1,6 +1,6 @@
 import { parse } from '@babel/parser';
 
-// @test-next-line
+// @unitless-io:test
 const parseJs = (code: string) => {
   return parse(code);
 };
