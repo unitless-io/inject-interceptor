@@ -4,7 +4,7 @@ import * as t from '@babel/types';
 import generate from '@babel/generator';
 import { getFunctionId } from '@unitless-io/local-db';
 
-import { FunctionType } from '@app/constants';
+import { FunctionType, MAGIC_COMMENTS_REGEXP } from '@app/constants';
 
 import { createArrowFunctionInterceptor } from './create-interceptor';
 
@@ -37,8 +37,10 @@ export const injectInterceptor = (content: string, fileId: string): Rresult => {
 
             if (t.isExportNamedDeclaration(variableDeclarationPath.parent)) {
               const exportNamedDeclarationNode = variableDeclarationPath.parent;
-              const leadingComment = exportNamedDeclarationNode.leadingComments?.[0].value;
-              if (leadingComment && /@test-next-line/.test(leadingComment)) {
+              const hasTestMagicComment = exportNamedDeclarationNode.leadingComments?.some(({ value }) =>
+                MAGIC_COMMENTS_REGEXP.TEST.test(value)
+              );
+              if (hasTestMagicComment) {
                 const name = Object.keys(variableDeclarationPath.getOuterBindingIdentifiers())[0];
                 const id = getFunctionId(fileId, name);
 

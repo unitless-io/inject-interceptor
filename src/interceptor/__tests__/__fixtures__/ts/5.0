@@ -1,11 +1,11 @@
 import { parse } from '@babel/parser';
 
-// @test-next-line
+// @unitless-io:test
 export const parseJs = (code: string) => {
   return parse(code);
 };
 
-// @test-next-line
+// @unitless-io:test
 export const parseTs = (code: string) => {
   return parse(code);
 };
