@@ -1,8 +1,9 @@
 {
   "name": "@unitless-io/inject-interceptor",
-  "version": "0.0.1",
-  "description": "Unitless Inject Interceptor",
+  "version": "1.0.0",
+  "description": "Unitless.io Inject Interceptor",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -13,14 +14,26 @@
     "lint": "eslint src --ext ts --resolve-plugins-relative-to . && npm run prettier-check",
     "prettier": "prettier --ignore-path .eslintignore --write \"./**/*.ts\" \"./**/*.json\"",
     "prettier-check": "prettier --ignore-path .eslintignore --check \"./**/*.ts\" \"./**/*.json\"",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/unitless-io/inject-interceptor.git"
   },
-  "author": "The Unitless Team",
-  "license": "Apache-2.0",
+  "contributors": [
+    {
+      "name": "Vlad Surahin",
+      "email": "v.suragin@gmail.com",
+      "url": "https://github.com/vinlaud"
+    },
+    {
+      "name": "Siarhei Smantsar",
+      "email": "siarhei.smantsar@gmail.com",
+      "url": "https://github.com/SIARHEI-SMANTSAR"
+    }
+  ],
+  "license": "Apache-2.0 license",
   "bugs": {
     "url": "https://github.com/unitless-io/inject-interceptor/issues"
   },
@@ -36,6 +49,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.5.1",
     "prettier": "^2.5.1",
+    "standard-version": "^9.5.0",
     "ts-jest": "^27.1.3",
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.7.0",
@@ -48,7 +62,6 @@
     "@babel/parser": "^7.17.3",
     "@babel/traverse": "^7.17.3",
     "@babel/types": "^7.17.0",
-    "@unitless-io/local-db": "git+https://github.com/unitless-io/local-db.git#develop",
-    "ramda": "^0.28.0"
+    "@unitless-io/local-db": "1.0.0"
   }
 }
